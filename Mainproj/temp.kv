@@ -1,0 +1,44 @@
+#:kivy 2.0.0
+
+<TempRead>:
+    cputemp: temp_left
+    gputemp: temp_right
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 0.1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    canvas:
+        Rectangle:
+            pos: self.center_x - 5, 0
+            size: 10, self.height
+    Label:
+        font_size: 35
+        center_x: root.width / 4
+        top: root.top - 18
+        text: 'CPU'
+        font_name: 'Arial'
+    Label:
+        font_size: 35
+        center_x: root.width * 3 / 4
+        top: root.top - 18
+        text: 'GPU'
+    Label:
+        font_size: 70
+        center_x: root.width / 4
+        top: root.top - 60
+        text: str(root.cputemp.score)
+    Label:
+        font_size: 70
+        center_x: root.width * 3 / 4
+        top: root.top - 60
+        text: str(root.gputemp.score)
+    ScoreDef:
+        id: temp_left
+        x: root.x
+        center_y: root.center_y
+    ScoreDef:
+        id: temp_right
+        x: root.width - self.width
+        center_y: root.center_y
