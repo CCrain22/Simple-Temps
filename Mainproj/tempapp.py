@@ -4,6 +4,7 @@ import subprocess
 import atexit
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.uix.gridlayout import GridLayout
 import kivy.properties as properties
 from kivy.clock import Clock
 
@@ -18,14 +19,18 @@ def HardwareMonitorOpen():
 def HardWareMonitorClose(process_):
     process_.kill()
 
-class ScoreDef(Widget):
-    score = properties.NumericProperty(0)
+class NumDef(Widget):
+    numdef = properties.NumericProperty(0)
 
-# root widget along with the temp detection
+class Grid(GridLayout):
+    pass
+
 class TempRead(Widget):
     cputemp = properties.ObjectProperty(None)
     gputemp = properties.ObjectProperty(None)
-  
+    cpupercent = properties.ObjectProperty(None)
+    gpupercent = properties.ObjectProperty(None)
+
     def update(self, dt):
         #temps
         for sensor in sensors.Sensor():
@@ -34,9 +39,14 @@ class TempRead(Widget):
             datalist.append(datatuple)
             if 'Temperature' in datatuple[0]:
                 if 'CPU' in datatuple[0]:
-                    self.cputemp.score = int(datatuple[1])
+                    self.cputemp.numdef = int(datatuple[1])
                 elif 'GPU' in datatuple[0]:
-                    self.gputemp.score = int(datatuple[1])
+                    self.gputemp.numdef = int(datatuple[1])
+            if 'Load' in datatuple[0]:
+                if 'CPU' and 'Total' in datatuple[0]:
+                    self.cpupercent.numdef = int(datatuple[1])
+                elif 'GPU Core Load' in datatuple[0]:
+                    self.gpupercent.numdef = int(datatuple[1])
         
 class TempApp(App):
     def build(self):

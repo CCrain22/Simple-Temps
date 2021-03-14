@@ -2,7 +2,10 @@
 
 <TempRead>:
     cputemp: temp_left
+    cpupercent: per_left
     gputemp: temp_right
+    gpupercent: per_right
+
     canvas.before:
         Color:
             rgba: 1, 1, 1, 0.1
@@ -10,35 +13,70 @@
             pos: self.pos
             size: self.size
     canvas:
+        #dividing line
         Rectangle:
             pos: self.center_x - 5, 0
             size: 10, self.height
+    
+    #CPU labels
     Label:
-        font_size: 35
+        font_size: 50
         center_x: root.width / 4
-        top: root.top - 18
+        top: root.top - 20
         text: 'CPU'
-        font_name: 'Arial'
-    Label:
-        font_size: 35
-        center_x: root.width * 3 / 4
-        top: root.top - 18
-        text: 'GPU'
+    #Temp
     Label:
         font_size: 70
         center_x: root.width / 4
-        top: root.top - 60
-        text: str(root.cputemp.score)
+        top: root.top - 80
+        text: str(root.cputemp.numdef) + '°'
+    #Percent
+    Label:
+        font_size: 70
+        center_x: root.width / 4
+        top: root.top - 150
+        text: str(root.cpupercent.numdef) + '%'
+    
+    #GPU labels
+    Label:
+        font_size: 50
+        center_x: root.width * 3 / 4
+        top: root.top - 20
+        text: 'GPU'
+    #Temp
     Label:
         font_size: 70
         center_x: root.width * 3 / 4
-        top: root.top - 60
-        text: str(root.gputemp.score)
-    ScoreDef:
+        top: root.top - 80
+        text: str(root.gputemp.numdef) + '°'
+    #Percent
+    Label:
+        font_size: 70
+        center_x: root.width * 3 / 4
+        top: root.top - 150
+        text: str(root.gpupercent.numdef) + '%'
+    
+    #CPU placement
+    #Temp
+    NumDef:
         id: temp_left
         x: root.x
         center_y: root.center_y
-    ScoreDef:
+    #Percent
+    NumDef:
+        id: per_left
+        x: root.x
+        center_y: root.center_y
+
+    #GPU placement
+    #Temp
+    NumDef:
         id: temp_right
         x: root.width - self.width
         center_y: root.center_y
+    #percent
+    NumDef:
+        id: per_right
+        x:root.width - self.width
+        center_y: root.center_y
+
