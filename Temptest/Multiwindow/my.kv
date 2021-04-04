@@ -1,0 +1,23 @@
+#:kivy 2.0.0
+
+WindowManager:
+    MainWindow:
+    SecondWindow:
+
+<MainWindow>:
+    name: "main"
+
+    Button:
+        text: "Submit"
+        on_release:
+            app.root.current = "second"
+            root.manager.transition.direction = "left"
+                
+<SecondWindow>:
+    name: "second"
+
+    Button:
+        text: "Go Back"
+        on_release:
+            app.root.current = "main"
+            root.manager.transition.direction = "right"
