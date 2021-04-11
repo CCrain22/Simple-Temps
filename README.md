@@ -1,5 +1,15 @@
 # Simple-Temps
-This will be a personalizable and versitile temperature reading program.
-The idea is to desplay only what you need, and in the size and color that is comfortable for you.
-There's probably already a better version of this, but I think it's a fun project.
-Have a good day :)
+
+Simple-Temps is a simple, configurable way to display CPU and GPU
+temperatures.  It's designed to be minimal (to display only what you
+need) and easy to personalize (in the size and color that is
+comfortable for you).
+
+Simple-Temps was orignally an eighth grade project at ... and was
+created to help it's author learn python.
+
+# Installation
+
+# Thirdparty Dependencies
+
+
