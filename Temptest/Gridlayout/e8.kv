@@ -1,0 +1,51 @@
+#:kivy 2.0.0
+
+<MyW>:
+    id: seperator
+    cols: 3
+    rows: 3
+    Label:
+        id: label1
+        text: 'B1'
+        canvas:
+            Rectangle:
+                pos: label1.x + label1.width, 0
+                size: 2, seperator.height
+
+    Label:
+        id: label2
+        text: 'B2'
+        canvas:
+            Rectangle:
+                pos: label2.x + label2.width, 0
+                size: 2, seperator.height
+    Label:
+        id: label3
+        text: 'B3'
+    Label:
+        id: label4
+        text: 'B4'
+        canvas:
+            Rectangle:
+                pos: 0, label4.y + label4.height
+                size: seperator.width, 2
+    Label:
+        id: label5
+        text: 'B5'
+    Label:
+        id: label6
+        text: 'B6'
+    Label:
+        id: label7
+        text: 'B7'
+        canvas:
+            Rectangle:
+                pos: 0, label7.y + label7.height
+                size: seperator.width, 2
+    Label:
+        id: label8
+        text: 'B8'
+    Label:
+        id: label9
+        text: 'B9'
+    
