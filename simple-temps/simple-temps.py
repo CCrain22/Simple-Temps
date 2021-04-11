@@ -2,20 +2,24 @@ import kivy
 import wmi
 import subprocess
 import atexit
+import os
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.gridlayout import GridLayout
-from kivy.lang import Builder
 import kivy.properties as properties
 from kivy.clock import Clock
-from kivy.uix.screenmanager import Screen, ScreenManager
+
 
 datalist = []
 
 sensors = wmi.WMI(namespace='root\OpenHardwareMonitor')
 
 def HardwareMonitorOpen():
-    return subprocess.Popen(['c:\\Users\\ccrai\\Downloads\\Finalproj\\Temps\\OpenHardwareMonitor\\OpenHardwareMonitor.exe'])
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    parent_directory = os.path.dirname(script_directory)
+    hardware_monitor_path = os.path.join(parent_directory,"thirdparty","openhardwaremonitor-v0.9.6\OpenHardwareMonitor\OpenHardwareMonitor.exe")
+#    print(hardware_monitor_path,flush=True)
+    return subprocess.Popen([hardware_monitor_path],shell=True)
 
 def HardWareMonitorClose(process_):
     process_.kill()
@@ -23,7 +27,7 @@ def HardWareMonitorClose(process_):
 class NumDef(Widget):
     numdef = properties.NumericProperty(0)
 
-class MainWindow(Screen):
+class TempRead(GridLayout):
     cputemp = properties.ObjectProperty(None)
     gputemp = properties.ObjectProperty(None)
     cpupercent = properties.ObjectProperty(None)
@@ -45,23 +49,13 @@ class MainWindow(Screen):
                     self.cpupercent.numdef = int(datatuple[1])
                 elif 'GPU Core Load' in datatuple[0]:
                     self.gpupercent.numdef = int(datatuple[1])
-
-class SecondWindow(Screen):
-    pass
-
-class WindowManager(ScreenManager):
-    pass
         
-kv = Builder.load_file('temptest.kv')
-
 class TempApp(App):
     def build(self):
-        temps = MainWindow()
+        temps = TempRead()
         Clock.schedule_interval(temps.update, 1.0)
-        #kv.MainWindow = temps
-        #kv.mainscreen = temps
-        return kv
-        
+        return temps
+      
 if __name__ == '__main__':
     HardwareMonitor = HardwareMonitorOpen()
     atexit.register(HardWareMonitorClose, HardwareMonitor)
