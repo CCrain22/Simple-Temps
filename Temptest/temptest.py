@@ -56,11 +56,12 @@ kv = Builder.load_file('temptest.kv')
 
 class TempApp(App):
     def build(self):
-        temps = MainWindow()
+        wm = WindowManager()
+        temps = MainWindow(name='main')
         Clock.schedule_interval(temps.update, 1.0)
-        #kv.MainWindow = temps
-        #kv.mainscreen = temps
-        return temps
+        wm.add_widget(temps)
+        wm.add_widget(SecondWindow(name='second'))
+        return wm
         
 if __name__ == '__main__':
     HardwareMonitor = HardwareMonitorOpen()
